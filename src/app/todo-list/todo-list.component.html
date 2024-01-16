@@ -6,7 +6,7 @@
   <form (ngSubmit) ="onSubmit (taskForm)" #taskForm="ngForm">
     <div class="form-group">
       <label for="task">Task</label>
-      <input type="task" class="form-control" id="task"placeholder="Enter Task" ngModel name="task">
+      <input type="text" class="form-control" id="task" placeholder="Enter Task" [(ngModel)]="task.taskName" name="task" required>
       <small id="errorMessage" class="form-text text-danger">Required Field</small>
     </div>
 
@@ -17,19 +17,22 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <th scope="col">Task</th>
-      <th scope="col">Completed</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Mark</td>
-      <td><input id="myCheckbox" type="checkbox" value="" id="defaultCheck1"></td>
-      <td><button class = "btn btn-danger btn-small">Delete</button></td>
+
+    <tr >
+      <td >Task</td>
+      <td scope="col">Completed</td>
+      <td scope="col">Delete</td>
     </tr>
 
+  </thead>
+  <tbody>
+    @for (t of taskArray; track $index) {
+    <tr>
+      <td>{{ t.taskName }}</td>
+      <td><input id="myCheckbox" type="checkbox" value="" id="defaultCheck1"></td>
+      <td><button class = "btn btn-danger btn-small" (click)="deleteTask($index)" >Delete</button></td>
+    </tr>
+  }
   </tbody>
 </table>
 

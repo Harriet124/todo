@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo-list.component.css'
 })
 export class TodoListComponent implements OnInit {
+  taskArray=[{taskName: 'Brush teeth', isCompleted:false}];
+  task = { taskName:  ''} ;
+
 
 
 constructor() {};
@@ -16,9 +19,22 @@ ngOnInit(): void{
 
 }
 
-onSubmit(form: any){
-  
+
+onSubmit(form: NgForm) {
+
+  if (form.valid) {
+    // Push the new task to the taskArray
+    this.taskArray.push({ taskName: this.task.taskName, isCompleted: false });
+    form.resetForm();
+    this.task = { taskName: '' }; // Reset taskName property
+
+  }
 }
+
+deleteTask(index: number) {
+  this.taskArray.splice(index, 1);
+}
+
 }
 
 
